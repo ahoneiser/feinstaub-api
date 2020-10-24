@@ -1,4 +1,7 @@
-__pycache__
-archive/**/*csv
-*~
-.cache/
+# cached python
+__pycache__/
+
+# archive dir
+/archive/*
+!/archive/.gitkeep
+!/archive/00disclamer.md
