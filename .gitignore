@@ -5,3 +5,6 @@ __pycache__/
 /archive/*
 !/archive/.gitkeep
 !/archive/00disclamer.md
+
+# static-root dir
+/feinstaub/static-root/
