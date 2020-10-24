@@ -1,16 +1,22 @@
-web:
-  build: .
-  command: "runserver 0.0.0.0:8000"
-  environment:
+---
+version: "3"
+services:
+  web:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+
+    command: "runserver 0.0.0.0:8000"
+    entrypoint: "./manage.py"
+    environment:
       PYTHONUNBUFFERED: 0
       DJANGO_SETTINGS_MODULE: feinstaub.settings.base
-  entrypoint:
-   - './manage.py'
-  links:
-   - db
-  volumes:
-   - .:/opt/code
-  ports:
-   - "8000:8000"
-db:
-  image: postgres:9.6
+
+    volumes:
+      - "./:/opt/code"
+
+    ports:
+      - "8000:8000"
+
+  db:
+    image: postgres:9.6
