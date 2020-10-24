@@ -7,7 +7,14 @@ SECRET_KEY = "%_qp8x233p&#zrt1y1v_kgp0a6ryj6(9&rr&j!f=xfyv1p%gg8"
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+]
+
+if os.environ.get("ALLOWED_HOSTS", None):
+    for _ in os.environ.get("ALLOWED_HOSTS").split(","):
+        ALLOWED_HOSTS.append(_)
 
 INSTALLED_APPS = (
     "django.contrib.admin",
