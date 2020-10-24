@@ -10,11 +10,14 @@ RUN apt-get update && \
 RUN apt-get clean && \
   rm -rf /var/cache/apt/lists/*
 
+RUN pip install --no-cache-dir poetry
+
 WORKDIR /opt/code
 
-COPY requirements.txt .
+COPY poetry.lock pyproject.toml ./
 
-RUN pip install --no-cache-dir -r requirements.txt
+RUN poetry config virtualenvs.create false && \
+  poetry install --no-interaction
 
 COPY . .
 

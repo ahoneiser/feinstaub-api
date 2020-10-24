@@ -5,10 +5,13 @@ from .models import UserProfile
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = UserProfile
-        fields = ("notification_type", "pushover_clientkey", "notifymyandroid_apikey")
+        fields = (
+            "notification_type",
+            "pushover_clientkey",
+            "notifymyandroid_apikey",
+        )
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -16,4 +19,4 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'profile')
+        fields = ("id", "username", "email", "profile")

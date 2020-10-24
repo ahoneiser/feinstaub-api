@@ -2,7 +2,7 @@
 
 # wait for postgres
 until pg_isready -h ${DB_HOST} -p ${DB_PORT} >/dev/null 2>&1; do
-  echo waiting for postgres .. 
+  echo waiting for postgres ..
   sleep 1
 done
 

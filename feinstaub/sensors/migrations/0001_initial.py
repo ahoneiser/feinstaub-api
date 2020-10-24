@@ -17,130 +17,382 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Node',
+            name="Node",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created', django_extensions.db.fields.CreationDateTimeField(auto_now_add=True, verbose_name='created')),
-                ('modified', django_extensions.db.fields.ModificationDateTimeField(auto_now=True, verbose_name='modified')),
-                ('uid', models.SlugField(unique=True)),
-                ('name', models.TextField(blank=True, null=True)),
-                ('description', models.TextField(blank=True, null=True)),
-                ('height', models.IntegerField(null=True)),
-                ('sensor_position', models.IntegerField(null=True)),
-                ('email', models.EmailField(blank=True, max_length=254, null=True)),
-                ('last_notify', models.DateTimeField(blank=True, null=True)),
-                ('description_internal', models.TextField(blank=True, null=True)),
-                ('indoor', models.BooleanField(default=False)),
-                ('inactive', models.BooleanField(default=False)),
-                ('exact_location', models.BooleanField(default=False)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "created",
+                    django_extensions.db.fields.CreationDateTimeField(
+                        auto_now_add=True, verbose_name="created"
+                    ),
+                ),
+                (
+                    "modified",
+                    django_extensions.db.fields.ModificationDateTimeField(
+                        auto_now=True, verbose_name="modified"
+                    ),
+                ),
+                ("uid", models.SlugField(unique=True)),
+                ("name", models.TextField(blank=True, null=True)),
+                ("description", models.TextField(blank=True, null=True)),
+                ("height", models.IntegerField(null=True)),
+                ("sensor_position", models.IntegerField(null=True)),
+                (
+                    "email",
+                    models.EmailField(blank=True, max_length=254, null=True),
+                ),
+                ("last_notify", models.DateTimeField(blank=True, null=True)),
+                (
+                    "description_internal",
+                    models.TextField(blank=True, null=True),
+                ),
+                ("indoor", models.BooleanField(default=False)),
+                ("inactive", models.BooleanField(default=False)),
+                ("exact_location", models.BooleanField(default=False)),
             ],
             options={
-                'ordering': ['uid'],
+                "ordering": ["uid"],
             },
         ),
         migrations.CreateModel(
-            name='Sensor',
+            name="Sensor",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created', django_extensions.db.fields.CreationDateTimeField(auto_now_add=True, verbose_name='created')),
-                ('modified', django_extensions.db.fields.ModificationDateTimeField(auto_now=True, verbose_name='modified')),
-                ('pin', models.CharField(db_index=True, default='-', help_text='differentiate the sensors on one node by giving pin used', max_length=10)),
-                ('description', models.TextField(blank=True, null=True)),
-                ('public', models.BooleanField(db_index=True, default=False)),
-                ('node', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='sensors', to='sensors.node')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "created",
+                    django_extensions.db.fields.CreationDateTimeField(
+                        auto_now_add=True, verbose_name="created"
+                    ),
+                ),
+                (
+                    "modified",
+                    django_extensions.db.fields.ModificationDateTimeField(
+                        auto_now=True, verbose_name="modified"
+                    ),
+                ),
+                (
+                    "pin",
+                    models.CharField(
+                        db_index=True,
+                        default="-",
+                        help_text="differentiate the sensors on one node by giving pin used",
+                        max_length=10,
+                    ),
+                ),
+                ("description", models.TextField(blank=True, null=True)),
+                ("public", models.BooleanField(db_index=True, default=False)),
+                (
+                    "node",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="sensors",
+                        to="sensors.node",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='SensorType',
+            name="SensorType",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created', django_extensions.db.fields.CreationDateTimeField(auto_now_add=True, verbose_name='created')),
-                ('modified', django_extensions.db.fields.ModificationDateTimeField(auto_now=True, verbose_name='modified')),
-                ('uid', models.SlugField(unique=True)),
-                ('name', models.CharField(max_length=1000)),
-                ('manufacturer', models.CharField(max_length=1000)),
-                ('description', models.CharField(blank=True, max_length=10000, null=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "created",
+                    django_extensions.db.fields.CreationDateTimeField(
+                        auto_now_add=True, verbose_name="created"
+                    ),
+                ),
+                (
+                    "modified",
+                    django_extensions.db.fields.ModificationDateTimeField(
+                        auto_now=True, verbose_name="modified"
+                    ),
+                ),
+                ("uid", models.SlugField(unique=True)),
+                ("name", models.CharField(max_length=1000)),
+                ("manufacturer", models.CharField(max_length=1000)),
+                (
+                    "description",
+                    models.CharField(blank=True, max_length=10000, null=True),
+                ),
             ],
             options={
-                'ordering': ['name'],
+                "ordering": ["name"],
             },
         ),
         migrations.CreateModel(
-            name='SensorLocation',
+            name="SensorLocation",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created', django_extensions.db.fields.CreationDateTimeField(auto_now_add=True, verbose_name='created')),
-                ('modified', django_extensions.db.fields.ModificationDateTimeField(auto_now=True, verbose_name='modified')),
-                ('location', models.TextField(blank=True, null=True)),
-                ('latitude', models.DecimalField(blank=True, decimal_places=11, max_digits=14, null=True)),
-                ('longitude', models.DecimalField(blank=True, decimal_places=11, max_digits=14, null=True)),
-                ('altitude', models.DecimalField(blank=True, decimal_places=8, max_digits=14, null=True)),
-                ('indoor', models.BooleanField(default=False)),
-                ('street_name', models.TextField(blank=True, null=True)),
-                ('street_number', models.TextField(blank=True, null=True)),
-                ('postalcode', models.TextField(blank=True, null=True)),
-                ('city', models.TextField(blank=True, null=True)),
-                ('country', models.TextField(blank=True, null=True)),
-                ('traffic_in_area', models.IntegerField(null=True)),
-                ('oven_in_area', models.IntegerField(null=True)),
-                ('industry_in_area', models.IntegerField(null=True)),
-                ('description', models.TextField(blank=True, null=True)),
-                ('timestamp', models.DateTimeField(default=django.utils.timezone.now)),
-                ('owner', models.ForeignKey(blank=True, help_text='If not set, location is public.', null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "created",
+                    django_extensions.db.fields.CreationDateTimeField(
+                        auto_now_add=True, verbose_name="created"
+                    ),
+                ),
+                (
+                    "modified",
+                    django_extensions.db.fields.ModificationDateTimeField(
+                        auto_now=True, verbose_name="modified"
+                    ),
+                ),
+                ("location", models.TextField(blank=True, null=True)),
+                (
+                    "latitude",
+                    models.DecimalField(
+                        blank=True, decimal_places=11, max_digits=14, null=True
+                    ),
+                ),
+                (
+                    "longitude",
+                    models.DecimalField(
+                        blank=True, decimal_places=11, max_digits=14, null=True
+                    ),
+                ),
+                (
+                    "altitude",
+                    models.DecimalField(
+                        blank=True, decimal_places=8, max_digits=14, null=True
+                    ),
+                ),
+                ("indoor", models.BooleanField(default=False)),
+                ("street_name", models.TextField(blank=True, null=True)),
+                ("street_number", models.TextField(blank=True, null=True)),
+                ("postalcode", models.TextField(blank=True, null=True)),
+                ("city", models.TextField(blank=True, null=True)),
+                ("country", models.TextField(blank=True, null=True)),
+                ("traffic_in_area", models.IntegerField(null=True)),
+                ("oven_in_area", models.IntegerField(null=True)),
+                ("industry_in_area", models.IntegerField(null=True)),
+                ("description", models.TextField(blank=True, null=True)),
+                (
+                    "timestamp",
+                    models.DateTimeField(default=django.utils.timezone.now),
+                ),
+                (
+                    "owner",
+                    models.ForeignKey(
+                        blank=True,
+                        help_text="If not set, location is public.",
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'ordering': ['location'],
+                "ordering": ["location"],
             },
         ),
         migrations.CreateModel(
-            name='SensorData',
+            name="SensorData",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created', django_extensions.db.fields.CreationDateTimeField(auto_now_add=True, verbose_name='created')),
-                ('modified', django_extensions.db.fields.ModificationDateTimeField(auto_now=True, verbose_name='modified')),
-                ('sampling_rate', models.IntegerField(blank=True, help_text='in milliseconds', null=True)),
-                ('timestamp', models.DateTimeField(db_index=True, default=django.utils.timezone.now)),
-                ('software_version', models.CharField(default='', help_text='sensor software version', max_length=100)),
-                ('location', models.ForeignKey(blank=True, on_delete=django.db.models.deletion.CASCADE, to='sensors.sensorlocation')),
-                ('sensor', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='sensordatas', to='sensors.sensor')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "created",
+                    django_extensions.db.fields.CreationDateTimeField(
+                        auto_now_add=True, verbose_name="created"
+                    ),
+                ),
+                (
+                    "modified",
+                    django_extensions.db.fields.ModificationDateTimeField(
+                        auto_now=True, verbose_name="modified"
+                    ),
+                ),
+                (
+                    "sampling_rate",
+                    models.IntegerField(
+                        blank=True, help_text="in milliseconds", null=True
+                    ),
+                ),
+                (
+                    "timestamp",
+                    models.DateTimeField(
+                        db_index=True, default=django.utils.timezone.now
+                    ),
+                ),
+                (
+                    "software_version",
+                    models.CharField(
+                        default="",
+                        help_text="sensor software version",
+                        max_length=100,
+                    ),
+                ),
+                (
+                    "location",
+                    models.ForeignKey(
+                        blank=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="sensors.sensorlocation",
+                    ),
+                ),
+                (
+                    "sensor",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="sensordatas",
+                        to="sensors.sensor",
+                    ),
+                ),
             ],
             options={
-                'get_latest_by': 'modified',
-                'abstract': False,
-                'index_together': {('modified',)},
+                "get_latest_by": "modified",
+                "abstract": False,
+                "index_together": {("modified",)},
             },
         ),
         migrations.AddField(
-            model_name='sensor',
-            name='sensor_type',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='sensors.sensortype'),
+            model_name="sensor",
+            name="sensor_type",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to="sensors.sensortype",
+            ),
         ),
         migrations.AddField(
-            model_name='node',
-            name='location',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='sensors.sensorlocation'),
+            model_name="node",
+            name="location",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to="sensors.sensorlocation",
+            ),
         ),
         migrations.AddField(
-            model_name='node',
-            name='owner',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+            model_name="node",
+            name="owner",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.CreateModel(
-            name='SensorDataValue',
+            name="SensorDataValue",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created', django_extensions.db.fields.CreationDateTimeField(auto_now_add=True, verbose_name='created')),
-                ('modified', django_extensions.db.fields.ModificationDateTimeField(auto_now=True, verbose_name='modified')),
-                ('value', models.TextField()),
-                ('value_type', models.CharField(choices=[('P0', '1µm particles'), ('P1', '10µm particles'), ('P2', '2.5µm particles'), ('durP1', 'duration 1µm'), ('durP2', 'duration 2.5µm'), ('ratioP1', 'ratio 1µm in percent'), ('ratioP2', 'ratio 2.5µm in percent'), ('samples', 'samples'), ('min_micro', 'min_micro'), ('max_micro', 'max_micro'), ('temperature', 'Temperature'), ('humidity', 'Humidity'), ('pressure', 'Pa'), ('altitude', 'meter'), ('pressure_sealevel', 'Pa (sealevel)'), ('brightness', 'Brightness'), ('dust_density', 'Dust density in mg/m3'), ('vo_raw', 'Dust voltage raw'), ('voltage', 'Dust voltage calculated'), ('P10', '1µm particles'), ('P25', '2.5µm particles'), ('durP10', 'duration 1µm'), ('durP25', 'duration 2.5µm'), ('ratioP10', 'ratio 1µm in percent'), ('ratioP25', 'ratio 2.5µm in percent'), ('door_state', 'door state (open/closed)'), ('lat', 'latitude'), ('lon', 'longitude'), ('height', 'height'), ('hdop', 'horizontal dilusion of precision'), ('timestamp', 'measured timestamp'), ('age', 'measured age'), ('satelites', 'number of satelites'), ('speed', 'current speed over ground'), ('azimuth', 'track angle'), ('noise_L01', 'Sound level L01'), ('noise_L95', 'Sound level L95'), ('noise_Leq', 'Sound level Leq')], db_index=True, max_length=100)),
-                ('sensordata', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='sensordatavalues', to='sensors.sensordata')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "created",
+                    django_extensions.db.fields.CreationDateTimeField(
+                        auto_now_add=True, verbose_name="created"
+                    ),
+                ),
+                (
+                    "modified",
+                    django_extensions.db.fields.ModificationDateTimeField(
+                        auto_now=True, verbose_name="modified"
+                    ),
+                ),
+                ("value", models.TextField()),
+                (
+                    "value_type",
+                    models.CharField(
+                        choices=[
+                            ("P0", "1µm particles"),
+                            ("P1", "10µm particles"),
+                            ("P2", "2.5µm particles"),
+                            ("durP1", "duration 1µm"),
+                            ("durP2", "duration 2.5µm"),
+                            ("ratioP1", "ratio 1µm in percent"),
+                            ("ratioP2", "ratio 2.5µm in percent"),
+                            ("samples", "samples"),
+                            ("min_micro", "min_micro"),
+                            ("max_micro", "max_micro"),
+                            ("temperature", "Temperature"),
+                            ("humidity", "Humidity"),
+                            ("pressure", "Pa"),
+                            ("altitude", "meter"),
+                            ("pressure_sealevel", "Pa (sealevel)"),
+                            ("brightness", "Brightness"),
+                            ("dust_density", "Dust density in mg/m3"),
+                            ("vo_raw", "Dust voltage raw"),
+                            ("voltage", "Dust voltage calculated"),
+                            ("P10", "1µm particles"),
+                            ("P25", "2.5µm particles"),
+                            ("durP10", "duration 1µm"),
+                            ("durP25", "duration 2.5µm"),
+                            ("ratioP10", "ratio 1µm in percent"),
+                            ("ratioP25", "ratio 2.5µm in percent"),
+                            ("door_state", "door state (open/closed)"),
+                            ("lat", "latitude"),
+                            ("lon", "longitude"),
+                            ("height", "height"),
+                            ("hdop", "horizontal dilusion of precision"),
+                            ("timestamp", "measured timestamp"),
+                            ("age", "measured age"),
+                            ("satelites", "number of satelites"),
+                            ("speed", "current speed over ground"),
+                            ("azimuth", "track angle"),
+                            ("noise_L01", "Sound level L01"),
+                            ("noise_L95", "Sound level L95"),
+                            ("noise_Leq", "Sound level Leq"),
+                        ],
+                        db_index=True,
+                        max_length=100,
+                    ),
+                ),
+                (
+                    "sensordata",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="sensordatavalues",
+                        to="sensors.sensordata",
+                    ),
+                ),
             ],
             options={
-                'unique_together': {('sensordata', 'value_type')},
+                "unique_together": {("sensordata", "value_type")},
             },
         ),
         migrations.AlterUniqueTogether(
-            name='sensor',
-            unique_together={('node', 'pin')},
+            name="sensor",
+            unique_together={("node", "pin")},
         ),
     ]
