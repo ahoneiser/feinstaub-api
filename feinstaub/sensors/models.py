@@ -93,6 +93,11 @@ class SensorData(TimeStampedModel):
 
 
 SENSOR_TYPE_CHOICES = (
+    # fixup - add missing choices
+    ("SDS_P1", "SDS_P1"),
+    ("SDS_P2", "SDS_P2"),
+    ("signal", "signal"),
+    ("interval", "interval"),
     # ppd42ns P1 -> 1µm / SDS011 P1 -> 10µm
     ("P0", "1µm particles"),
     ("P1", "10µm particles"),
