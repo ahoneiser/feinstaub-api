@@ -192,5 +192,5 @@ class Command(BaseCommand):
                 },
             )
             return url
-        except IOError as e:
+        except IOError:
             return None
