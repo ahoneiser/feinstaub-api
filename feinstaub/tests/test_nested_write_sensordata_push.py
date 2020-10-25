@@ -53,6 +53,4 @@ class TestSensorDataPush:
                 response.data.get("sensordatavalues")
             ) == sensordatavalue_fixture.get("count")
 
-        assert response.status_code == sensordatavalue_fixture.get(
-            "status_code"
-        )
+        assert response.status_code == sensordatavalue_fixture.get("status_code")

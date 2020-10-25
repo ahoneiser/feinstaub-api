@@ -17,9 +17,7 @@ class AddSensordeviceForm(forms.Form):
     # and
     # use_location_fk = forms.BooleanField(label='use existing location', required=True, initial=False)
     # location: manual input
-    location_location = forms.CharField(
-        label="Location name (Address)", initial=""
-    )
+    location_location = forms.CharField(label="Location name (Address)", initial="")
     location_description = forms.CharField(
         label="Location description", initial="", widget=forms.Textarea
     )
@@ -61,9 +59,7 @@ class AddSensordeviceForm(forms.Form):
     sensor1_description = forms.CharField(
         label="description for sensor 1", widget=forms.Textarea
     )
-    sensor1_public = forms.BooleanField(
-        label="public", required=True, initial=True
-    )
+    sensor1_public = forms.BooleanField(label="public", required=True, initial=True)
 
     # TODO: queryset
     #   class SensorType(TimeStampedModel): default: DHT22 9
@@ -79,6 +75,4 @@ class AddSensordeviceForm(forms.Form):
     )
     # sensor description should contain deviceinitials+"_"+sensor1_type
     sensor2_description = forms.CharField(label="description for sensor 2")
-    sensor2_public = forms.BooleanField(
-        label="public", required=True, initial=True
-    )
+    sensor2_public = forms.BooleanField(label="public", required=True, initial=True)

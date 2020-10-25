@@ -11,9 +11,7 @@ from .models import (
 
 
 class SensorDataValueSerializer(serializers.ModelSerializer):
-    sensordata = serializers.IntegerField(
-        read_only=True, source="sensordata.pk"
-    )
+    sensordata = serializers.IntegerField(read_only=True, source="sensordata.pk")
 
     class Meta:
         model = SensorDataValue
@@ -45,15 +43,11 @@ class SensorDataSerializer(serializers.ModelSerializer):
             )
 
         # use sensor from authenticator
-        successful_authenticator = self.context[
-            "request"
-        ].successful_authenticator
+        successful_authenticator = self.context["request"].successful_authenticator
         if not successful_authenticator:
             raise exceptions.NotAuthenticated
 
-        node, pin = successful_authenticator.authenticate(
-            self.context["request"]
-        )
+        node, pin = successful_authenticator.authenticate(self.context["request"])
         if node.sensors.count() == 1:
             sensors_qs = node.sensors.all()
         else:
@@ -115,12 +109,8 @@ class NestedSensorSerializer(serializers.ModelSerializer):
         fields = ("id", "description", "pin", "sensor_type", "sensordatas")
 
     def get_sensordatas(self, obj):
-        sensordatas = SensorData.objects.filter(sensor=obj).order_by(
-            "-timestamp"
-        )[:2]
-        serializer = NestedSensorDataSerializer(
-            instance=sensordatas, many=True
-        )
+        sensordatas = SensorData.objects.filter(sensor=obj).order_by("-timestamp")[:2]
+        serializer = NestedSensorDataSerializer(instance=sensordatas, many=True)
         return serializer.data
 
 

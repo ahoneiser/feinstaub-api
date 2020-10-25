@@ -8,9 +8,7 @@ from django.core.management import BaseCommand
 
 
 def str2date(str, default):
-    return (
-        datetime.datetime.strptime(str, "%Y-%m-%d").date() if str else default
-    )
+    return datetime.datetime.strptime(str, "%Y-%m-%d").date() if str else default
 
 
 class Command(BaseCommand):
@@ -135,9 +133,7 @@ class Command(BaseCommand):
             for sd in qs:
                 sensordata = {
                     data["value_type"]: data["value"]
-                    for data in sd.sensordatavalues.values(
-                        "value_type", "value"
-                    )
+                    for data in sd.sensordatavalues.values("value_type", "value")
                 }
                 if not sensordata:
                     continue

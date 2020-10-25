@@ -11,18 +11,12 @@ class UserProfile(TimeStampedModel):
         ("notifymyandroid", "notifymyandroid"),
     )
 
-    user = models.OneToOneField(
-        User, related_name="profile", on_delete=models.CASCADE
-    )
+    user = models.OneToOneField(User, related_name="profile", on_delete=models.CASCADE)
     notification_type = models.CharField(
         max_length=100, choices=NOTIFICATION_TYPE_CHOICES
     )
-    pushover_clientkey = models.CharField(
-        max_length=100, default="", blank=True
-    )
-    notifymyandroid_apikey = models.CharField(
-        max_length=100, default="", blank=True
-    )
+    pushover_clientkey = models.CharField(max_length=100, default="", blank=True)
+    notifymyandroid_apikey = models.CharField(max_length=100, default="", blank=True)
 
     def __str__(self):
         return str(self.user)

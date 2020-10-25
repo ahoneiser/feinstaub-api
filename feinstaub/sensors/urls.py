@@ -13,9 +13,7 @@ from main.views import UsersView
 
 
 router = routers.DefaultRouter()
-router.register(
-    r"push-sensor-data", PostSensorDataView, basename="push-sensor-data"
-)
+router.register(r"push-sensor-data", PostSensorDataView, basename="push-sensor-data")
 router.register(r"node", NodeView)
 router.register(r"sensor", SensorView)
 router.register(r"data", SensorDataView)

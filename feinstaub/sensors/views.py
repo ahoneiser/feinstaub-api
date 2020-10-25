@@ -58,9 +58,7 @@ class SensorView(
 
     def get_queryset(self):
         if self.request.user.is_authenticated:
-            if self.request.user.groups.filter(
-                name="show_me_everything"
-            ).exists():
+            if self.request.user.groups.filter(name="show_me_everything").exists():
                 return Sensor.objects.all()
             return Sensor.objects.filter(node__owner=self.request.user)
         return Sensor.objects.none()
@@ -94,13 +92,10 @@ class SensorDataView(
 
     def get_queryset(self):
         if self.request.user.is_authenticated:
-            if self.request.user.groups.filter(
-                name="show_me_everything"
-            ).exists():
+            if self.request.user.groups.filter(name="show_me_everything").exists():
                 return SensorData.objects.all()
             return SensorData.objects.filter(
-                Q(sensor__node__owner=self.request.user)
-                | Q(sensor__public=True)
+                Q(sensor__node__owner=self.request.user) | Q(sensor__public=True)
             )
         return SensorData.objects.filter(sensor__public=True)
 
@@ -116,9 +111,7 @@ class NodeView(
 
     def get_queryset(self):
         if self.request.user.is_authenticated:
-            if self.request.user.groups.filter(
-                name="show_me_everything"
-            ).exists():
+            if self.request.user.groups.filter(name="show_me_everything").exists():
                 return Node.objects.all()
             return Node.objects.filter(owner=self.request.user)
         return Node.objects.none()
@@ -184,9 +177,7 @@ class AddSensordeviceView(LoginRequiredMixin, FormView):
             #     messages.add_message(self.request,
             #                          messages.ERROR,
             #                          'an error occurred')
-        messages.add_message(
-            self.request, messages.INFO, "not implemented yet."
-        )
+        messages.add_message(self.request, messages.INFO, "not implemented yet.")
         return super().form_valid(form)
 
     # def get_success_url(self):
