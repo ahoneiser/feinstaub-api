@@ -113,7 +113,7 @@ SENSOR_TYPE_CHOICES = (
     ("pressure", "Pa"),
     ("altitude", "meter"),
     ("pressure_sealevel", "Pa (sealevel)"),
-    #
+    # TODO: chip?
     ("brightness", "Brightness"),
     # gp2y10
     ("dust_density", "Dust density in mg/m3"),
@@ -126,9 +126,9 @@ SENSOR_TYPE_CHOICES = (
     ("durP25", "duration 2.5µm"),
     ("ratioP10", "ratio 1µm in percent"),
     ("ratioP25", "ratio 2.5µm in percent"),
-    ##
+    # TODO: chip?
     ("door_state", "door state (open/closed)"),
-    ## gpssensor
+    # gpssensor
     ("lat", "latitude"),
     ("lon", "longitude"),
     ("height", "height"),
@@ -138,7 +138,7 @@ SENSOR_TYPE_CHOICES = (
     ("satelites", "number of satelites"),
     ("speed", "current speed over ground"),
     ("azimuth", "track angle"),
-    ## noise sensor
+    # noise sensor
     ("noise_L01", "Sound level L01"),
     ("noise_L95", "Sound level L95"),
     ("noise_Leq", "Sound level Leq"),
