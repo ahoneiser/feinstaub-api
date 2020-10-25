@@ -84,47 +84,36 @@ class Command(BaseCommand):
 
     @staticmethod
     def _write_file(filepath, qs, sensor):
-        sensor_type = sensor.sensor_type.name.lower()
-        if sensor_type == "ppd42ns" or sensor_type == "sds011":
-            key_list = ["P1", "durP1", "ratioP1", "P2", "durP2", "ratioP2"]
-        elif (
-            sensor_type == "pms1003"
-            or sensor_type == "pms3003"
-            or sensor_type == "pms5003"
-            or sensor_type == "pms6003"
-            or sensor_type == "pms7003"
-        ):
-            key_list = ["P1", "P2", "P0"]
-        elif sensor_type in ["ds18b20"]:
-            key_list = ["temperature"]
-        elif sensor_type in [
-            "dht11",
-            "dht22",
-            "htu21d",
-            "sht10",
-            "sht11",
-            "sht15",
-        ]:
-            key_list = ["temperature", "humidity"]
-        elif sensor_type == "bmp180" or sensor_type == "bpm280":
-            key_list = [
-                "pressure",
-                "altitude",
-                "pressure_sealevel",
-                "temperature",
-            ]
-        elif sensor_type == "bme280":
-            key_list = [
+        sensor_key_list = {
+            "ppd42ns": ["P1", "durP1", "ratioP1", "P2", "durP2", "ratioP2"],
+            "sds011": ["P1", "durP1", "ratioP1", "P2", "durP2", "ratioP2"],
+            "pms1003": ["P1", "P2", "P0"],
+            "pms3003": ["P1", "P2", "P0"],
+            "pms5003": ["P1", "P2", "P0"],
+            "pms6003": ["P1", "P2", "P0"],
+            "pms7003": ["P1", "P2", "P0"],
+            "ds18b20": ["temperature"],
+            "dht11": ["temperature", "humidity"],
+            "dht22": ["temperature", "humidity"],
+            "htu21d": ["temperature", "humidity"],
+            "sht10": ["temperature", "humidity"],
+            "sht11": ["temperature", "humidity"],
+            "sht15": ["temperature", "humidity"],
+            "bmp180": ["pressure", "altitude", "pressure_sealevel", "temperature"],
+            "bpm280": ["pressure", "altitude", "pressure_sealevel", "temperature"],
+            "bme280": [
                 "pressure",
                 "altitude",
                 "pressure_sealevel",
                 "temperature",
                 "humidity",
-            ]
-        elif sensor_type == "photoresistor":
-            key_list = ["brightness"]
-        else:
-            key_list = []
+            ],
+            "photoresistor": ["brightness"],
+        }
+
+        sensor_type = sensor.sensor_type.name.lower()
+
+        key_list = sensor_key_list.get(sensor_type, default=[])
 
         with open(filepath, "w") as fp:
             fp.write("sensor_id;sensor_type;location;lat;lon;timestamp;")
