@@ -48,9 +48,7 @@ class Node(TimeStampedModel):
 
 
 class Sensor(TimeStampedModel):
-    node = models.ForeignKey(
-        Node, related_name="sensors", on_delete=models.CASCADE
-    )
+    node = models.ForeignKey(Node, related_name="sensors", on_delete=models.CASCADE)
     pin = models.CharField(
         max_length=10,
         default="-",
@@ -76,9 +74,7 @@ class SensorData(TimeStampedModel):
         null=True, blank=True, help_text="in milliseconds"
     )
     timestamp = models.DateTimeField(default=now, db_index=True)
-    location = models.ForeignKey(
-        "SensorLocation", blank=True, on_delete=models.CASCADE
-    )
+    location = models.ForeignKey("SensorLocation", blank=True, on_delete=models.CASCADE)
     software_version = models.CharField(
         max_length=100, default="", help_text="sensor software version"
     )

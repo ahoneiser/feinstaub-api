@@ -34,9 +34,7 @@ def location():
 
 @pytest.fixture
 def sensor_type():
-    st, x = SensorType.objects.get_or_create(
-        uid="A", name="B", manufacturer="C"
-    )
+    st, x = SensorType.objects.get_or_create(uid="A", name="B", manufacturer="C")
     return st
 
 
